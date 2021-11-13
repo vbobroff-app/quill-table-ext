@@ -2,7 +2,7 @@ const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
-    entry: './src/quill-table.ts',
+    entry: './src/main.ts',
     output: {
        path: path.resolve(__dirname, 'dist'),
        filename: 'main.js',
