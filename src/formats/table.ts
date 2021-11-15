@@ -1,10 +1,12 @@
 import Quill from 'quill';
 import { Blot, FormatTable } from '../declared/blots';
 import BlockType from '../declared/block';
-import ContainerType from '../declared/container';
+//import ContainerType from '../declared/container';
 
 export const Block: BlockType = Quill.import('blots/block');
-export const Container: ContainerType = Quill.import('blots/container');
+//export const Container: ContainerType = Quill.import('blots/container');
+import { ContainerBlot } from 'quill-parchment';
+class Container extends ContainerBlot {}
 
 class TableCell extends Block {
   static create(value: string): HTMLElement {
@@ -99,7 +101,11 @@ class TableRow extends Container {
   table() {
     return this.parent && this.parent.parent;
   }
+  getChildren() {
+    return this.children;
+  }
 }
+
 TableRow.blotName = 'table-row';
 TableRow.tagName = 'TR';
 

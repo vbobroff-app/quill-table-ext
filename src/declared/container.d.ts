@@ -1,6 +1,10 @@
-import { Blot, Parent } from "./blots";
+//import { Blot, Parent } from "./blots";
 import LinkedList from "./collection/linked-list";
 import ShadowBlot from "./shadow";
+
+//import parchment from "quill-parchment"; //} from "quill-parchment/dist/blot/abstract/blot";
+import parchment  from 'quill-parchment';
+declare const Container: parchment.Container;
 
 export declare class ContainerBlot extends ShadowBlot implements Parent {
     static defaultChild: string;
@@ -17,9 +21,9 @@ export declare class ContainerBlot extends ShadowBlot implements Parent {
         new (): Blot;
     }, index: number): [Blot | null, number];
     descendant(criteria: (blot: Blot) => boolean, index: number): [Blot | null, number];
-    descendants(criteria: {
-        new (): Blot;
-    }, index: number, length: number): Blot[];
+    descendants<T>(criteria: {
+        new (ars?: any): T;
+    }, index?: number, length?: number): T[];
     descendants(criteria: (blot: Blot) => boolean, index: number, length: number): Blot[];
     detach(): void;
     formatAt(index: number, length: number, name: string, value: any): void;
@@ -46,16 +50,22 @@ export declare class ContainerBlot extends ShadowBlot implements Parent {
     create(element: any, value: any): Blot | Node | HTMLElement;
 }
 
-declare interface Container extends ContainerBlot {
-    blotName: string;
-    tagName: string;
-    create(value: any): Node;
-    allowedChildren: any[];
-    requiredContainer: any;
-    new (domNode: HTMLElement): Container;
-    children: LinkedList<ContainerBlot>;
-    checkMerge(): boolean;
-    descendants(blot:any): Blot[];
+
+
+declare interface Container extends Parchment.Container {
+    parent: Blot;
+    // blotName: string;
+    // tagName: string;
+    // create(value: any): Node;
+    // allowedChildren: any[];
+    // requiredContainer: any;
+    // new (domNode: HTMLElement): Container;
+    //children: LinkedList<ContainerBlot>;
+    // checkMerge(): boolean;
+    descendants<T>(criteria: {
+        new (ars?: any): T;
+    }, index?: number, length?: number): T[];
+    descendants<T>(criteria: (blot: T) => boolean, index?: number, length?: number): T[]
   }
 
   export default Container;
