@@ -120,7 +120,7 @@ class TableContainer extends Container {
           value = TableCell.formats(row.children.head.domNode as HTMLElement);
         }
         const blot = this.scroll.create(TableCell.blotName, value);
-        (row as TableRow).appendChild(blot);
+         row.appendChild(blot);
         (blot as Blot).optimize();
       });
     });

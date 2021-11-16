@@ -12,7 +12,7 @@ export declare class ContainerBlot extends ShadowBlot implements Parent {
     attach(): void;
     build(): void;
     deleteAt(index: number, length: number): void;
-    descendant(blot: any): [Blot | null, number];
+    
     descendant(criteria: {
         new (): Blot;
     }, index: number): [Blot | null, number];
@@ -46,7 +46,17 @@ export declare class ContainerBlot extends ShadowBlot implements Parent {
     create(element: any, value: any): Blot | Node | HTMLElement;
 }
 
-declare interface Container extends ContainerBlot {
+
+declare interface Blot {
+    domNode: Node | HTMLElement;
+    optimize(): void;
+}
+declare interface Parent extends Blot {
+    domNode: HTMLElement;
+    create(element: any, value?: any): Blot | Node | HTMLElement;
+}
+
+declare interface Container {
     blotName: string;
     tagName: string;
     create(value: any): Node;
@@ -55,7 +65,13 @@ declare interface Container extends ContainerBlot {
     new (domNode: HTMLElement): Container;
     children: LinkedList<ContainerBlot>;
     checkMerge(): boolean;
-    descendants(blot:any): Blot[];
+
+    scroll: Parent;
+
+
+    appendChild(other: Blot | Node): void;
+    descendant<T>(blot:T, index?: number): [T, number];
+    descendants<T>(blot:T): T[];
   }
 
   export default Container;
